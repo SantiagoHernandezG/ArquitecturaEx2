@@ -2,7 +2,6 @@ package model;
 import interfaces.Handler;
 import service.Banks;
 import service.CuentaService;
-import service.Operaciones;
 
 public class Teller implements Handler {
     private  Banks bancoId;
@@ -29,6 +28,7 @@ public class Teller implements Handler {
 
     @Override
     public void atenderCliente(Request request) {
+        System.out.println("Banquero: Será un placer atenderle...");
         CuentaService service = new CuentaService();
         switch (request.getOperacion()){
             case CONSULTAR:
