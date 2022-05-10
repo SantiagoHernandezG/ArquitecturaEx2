@@ -3,11 +3,20 @@ import service.Banks;
 import service.Operaciones;
 
 public class Request {
+    private String nombre;
     private int numeroCuenta;
     private int indexCuenta;
     private Banks bankId;
     private Operaciones operacion;
     private double cantidad;
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
     public int getNumeroCuenta() {
         return numeroCuenta;

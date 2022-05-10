@@ -1,7 +1,13 @@
+import model.ATM;
+import model.Request;
+import model.Teller;
+import service.Banks;
+import service.Operaciones;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        SetUp.init();
+        init();
         menu();
         //ToDO
 
@@ -12,7 +18,17 @@ public class Main {
          * */
     }
 
-    public static void menu(){
+    static void init() {
+        Teller teller = new Teller(Banks.SUCURSAL);
+        ATM atm1 = new ATM(Banks.A);
+        atm1.setNext(teller);
+        ATM atm2 = new ATM(Banks.B);
+        atm2.setNext(teller);
+        ATM atm3 = new ATM(Banks.C);
+        atm3.setNext(teller);
+    }
+
+    static void menu(){
 
     }
 }

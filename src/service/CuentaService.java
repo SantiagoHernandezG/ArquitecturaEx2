@@ -35,13 +35,16 @@ public class CuentaService {
 
     public void depositar(int index, double monto){
         Cuenta cuenta = cuentaRepository.obtenerCuentaPorIndice(index);
-        cuenta.setMonto(cuenta.getMonto() + monto);
+        Double saldo = cuenta.getMonto() + monto;
+        cuenta.setMonto(saldo);
         consultarCuentaIndex(index);
+        cuentaRepository.actualizarMontoDeCuenta(index,saldo);
     }
 
     public void retirar(int index, double monto,Banks banco){
         Cuenta cuenta = cuentaRepository.obtenerCuentaPorIndice(index);
         double comision =0;
+        double saldo= 0;
         switch (banco){
             case A:
                 comision = 30;
@@ -52,7 +55,13 @@ public class CuentaService {
             case SUCURSAL:
                 comision = 0;
         }
-        cuenta.setMonto(cuenta.getMonto() - monto - comision);
+        saldo = cuenta.getMonto() - monto - comision;
+        cuenta.setMonto(saldo);
         consultarCuentaIndex(index);
+        cuentaRepository.actualizarMontoDeCuenta(index,saldo);
+    }
+
+    public void eliminarCuenta(int index){
+        cuentaRepository.eliminarCuenta(index);
     }
 }

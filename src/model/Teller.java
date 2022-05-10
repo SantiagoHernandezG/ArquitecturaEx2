@@ -1,6 +1,7 @@
 package model;
 import interfaces.Handler;
 import service.Banks;
+import service.CuentaService;
 import service.Operaciones;
 
 public class Teller implements Handler {
@@ -9,10 +10,6 @@ public class Teller implements Handler {
 
     public Teller(Banks bancoId){
         setBancoId(bancoId);
-    }
-
-    public Banks getBancoId() {
-        return bancoId;
     }
 
     public void setBancoId(Banks bancoId) {
@@ -26,11 +23,37 @@ public class Teller implements Handler {
 
     @Override
     public void handle(Request request) {
-
+        request.setBankId(this.bancoId);
+        atenderCliente(request);
     }
 
     @Override
     public void atenderCliente(Request request) {
+        CuentaService service = new CuentaService();
+        switch (request.getOperacion()){
+            case CONSULTAR:
+                if(request.getNumeroCuenta() == 0){
+                    service.consultarCuentaIndex(request.getIndexCuenta());
+                }else{
+                    service.consultarCuentaNumero(request.getNumeroCuenta());
+                }
+                break;
 
+            case DEPOSITAR:
+                service.depositar(request.getIndexCuenta(), request.getCantidad());
+                break;
+
+            case RETIRAR:
+                service.retirar(request.getIndexCuenta(), request.getCantidad(), request.getBankId());
+                break;
+
+            case CREAR:
+                service.crearCuenta(request.getNombre());
+                break;
+
+            case ELIMINAR:
+                service.eliminarCuenta(request.getIndexCuenta());
+                break;
+        }
     }
 }

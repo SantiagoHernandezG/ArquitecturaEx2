@@ -44,4 +44,8 @@ public class CuentaRepository {
             cuenta.setMonto(monto);
         }
     }
+
+    public void eliminarCuenta(int index){
+        cuentas.remove(index);
+    }
 }

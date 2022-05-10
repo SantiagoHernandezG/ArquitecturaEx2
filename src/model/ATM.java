@@ -28,8 +28,10 @@ public class ATM implements Handler {
     @Override
     public void handle(Request request) {
         if(!(request.getOperacion() == Operaciones.CREAR || request.getOperacion()==  Operaciones.ELIMINAR)){
+            System.out.println("Esta petición no puede ser procesada por el ATM. Redirigiendo con banquero...");
             nextHandler.handle(request);
         }else{
+            request.setBankId(this.bancoId);
             atenderCliente(request);
         }
     }
